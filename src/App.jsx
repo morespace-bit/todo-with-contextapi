@@ -33,6 +33,23 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    const storedtodos = JSON.parse(localStorage.getItem("todos"));
+    if (storedtodos) {
+      setTodos(storedtodos);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (todos[0]) {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
+  }, [todos]);
+
+  useEffect(() => {
+    localStorage.setItem("name", "Nirmal");
+  });
+
   return (
     <>
       <ToDoProvider value={{ todos, addToDo, deleteTo, updateTo, toogeleTo }}>
@@ -42,7 +59,7 @@ function App() {
           <div className="w-full">
             {todos.map((dos) => {
               return (
-                <div key={dos.id} className="flex justify-center items-center"                                                                                                                  >
+                <div key={dos.id} className="flex justify-center items-center">
                   {console.log(dos)}
                   <Todolist dos={dos} />
                 </div>
